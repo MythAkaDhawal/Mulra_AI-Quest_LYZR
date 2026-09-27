@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    name: Lint & Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Enforce linting (flake8)
+        run: flake8 backend/ agents/ --max-line-length=120
+
+      - name: Execute automated test suite
+        run: pytest backend/tests/ -v
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          LYZR_API_KEY: ${{ secrets.LYZR_API_KEY }}
+          ENVIRONMENT: dev
