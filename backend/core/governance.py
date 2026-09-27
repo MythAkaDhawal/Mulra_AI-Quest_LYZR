@@ -25,7 +25,6 @@ def load_governance_rules(config_path: Path = GOVERNANCE_CONFIG_PATH) -> tuple[d
 ALLOWLIST_PREFIXES, DENYLIST_PATTERNS = load_governance_rules()
 
 
-
 def evaluate_governance(
     llm_output: TriageLLMOutput | RemediationAgentOutput,
 ) -> tuple[RemediationBlock, GovernanceBlock]:

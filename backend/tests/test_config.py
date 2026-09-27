@@ -1,5 +1,4 @@
 import os
-import pytest
 from backend.core.config import (
     DevSettings,
     StagingSettings,

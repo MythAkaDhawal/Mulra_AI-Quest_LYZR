@@ -1,4 +1,3 @@
-import json
 from agents.base_agent import call_llm_agent, AgentUnavailableError
 from agents.prompts import POST_MORTEM_PROMPT
 from backend.core.schemas import PostMortemBlock
